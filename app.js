@@ -61,12 +61,12 @@ app.get('/', (req, res, next) => {
     // What browser is the participant using?
     const browser = detect(req.headers['user-agent']);
 
-    // save above trial-specific info
-    tasks.save({
-        "participant_id": participant_id,
-        "study_name": study_name,
-        "browser": browser,
-    });
+    // Once database is provisioned+connected, uncomment to save above trial-specific info
+    // tasks.save({
+    //     "participant_id": participant_id,
+    //     "study_name": study_name,
+    //     "browser": browser,
+    // });
 
     res.render('experiment.ejs', {input_data: JSON.stringify({participant_id: participant_id})});
 });

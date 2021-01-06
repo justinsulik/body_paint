@@ -19,7 +19,7 @@ jsPsych.plugins['paint'] = (function() {
       labels: {
         type: jsPsych.plugins.parameterType.INT,
         array: true,
-        default: ['uncomfortable', 'comfortable'],
+        default: ['comfortable', 'uncomfortable'],
         description: 'Array of labels for the coloring categories'
       },
       color_type: {
