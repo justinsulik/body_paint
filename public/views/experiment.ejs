@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Experiment</title>
+        <script language="javascript" src="libraries/jquery-3.4.1.min.js"></script>
+        <script language="javascript" src="libraries/d3.js"></script>
+        <script language="javascript" src="libraries/helper.js"></script>
+        <script language="javascript" src="jspsych/jspsych.js"></script>
+        <!-- make sure you list the jspsych plugins you need below -->
+        <script language="javascript" src="jspsych/plugins/jspsych-instructions.js"></script>
+        <script language="javascript" src="jspsych/plugins/jspsych-paint-d3.js"></script>
+        <!-- the following is the styling provided by jspsych -->
+        <link href="jspsych/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+        <!-- the following is where you can tweak the styling -->
+        <link href="css/experiment.css" rel="stylesheet" type="text/css"></link>
+    </head>
+    <body>
+    </body>
+    <script>
+
+    /*
+    Set up: define a few experiment variables
+    */
+
+    // get the data passed along by app.js
+    var input_data = <%- input_data %>
+    var participant_id = input_data.participant_id;
+    console.log('Rendering trial ', participant_id)
+    jsPsych.data.addProperties({participant_id: participant_id});
+
+    var timeline = [];
+    var experiment_start_time;
+    var data_not_processed = true;
+    // The following needs to match the relevant route in app.js
+    var dataUrl = '/data?participant_id=' + participant_id;
+
+
+    /*
+    Define your trials
+    See tutorial at https://www.jspsych.org/tutorials/rt-task/
+    */
+
+    // instructions
+
+    var instructions = {
+      type: 'instructions',
+      pages: ['<p>This is a demo of a body-painting task. It requires a .png file in the folder public/img/body as a mask, to provide the body outline for painting.</p>'+
+      '<p>It also requires two javascript libraries (d3 and jquery), and is run as a jsPsych study (see <a href="https://www.jspsych.org" target="_blank">https://www.jspsych.org</a>)</p>'+
+      '<p>The data-saving functionality has been disabled for this demo, so the demo will end on a blank page.</p>'],
+      show_clickable_nav: true,
+    }
+
+    var demo = {
+      type: 'paint',
+      instructions: 'Choose paint colors on the palette bar, and paint on the body to show how comfortable/uncomfortable you would be if a stranger touched you there.',
+    }
+
+    timeline.push(instructions);
+    timeline.push(demo);
+
+    /*
+    Have jsPsych display the experiment timeline
+    */
+
+    jsPsych.init({
+        // uncomment if you need to preload anything that isn't a stim in an existing jspsych plugin
+        // preload_images: [],
+        default_iti: 500,
+        show_progress_bar: true,
+        exclusions: {
+          min_width: 800,
+          min_height: 500
+        },
+        experiment_width: 800,
+        timeline: timeline,
+        on_finish: function(){
+          console.log('Experiment completed...')
+          // If the node server and mongodb database have been set up appropriately, the data can be saved by uncommenting the following lines
+          // var data = helper.prepareData(experiment_start_time);
+          // helper.save(data, dataUrl);
+        }
+    });
+
+    </script>
+</html>
