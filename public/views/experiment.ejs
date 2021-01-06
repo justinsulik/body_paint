@@ -44,15 +44,16 @@
 
     var instructions = {
       type: 'instructions',
-      pages: ['<p>This is a demo of a body-painting task. It requires a .png file in the folder public/img/body as a mask, to provide the body outline for painting.</p>'+
+      pages: ['<p>This is a demo of a body-painting task (code at <a href="https://github.com/justinsulik/body_paint" target="_blank">https://github.com/justinsulik/body_paint</a>).</p>'+
+      '<p>It requires a .png file in the folder public/img/body as a mask, to provide the body outline for painting.</p>'+
       '<p>It also requires two javascript libraries (d3 and jquery), and is run as a jsPsych study (see <a href="https://www.jspsych.org" target="_blank">https://www.jspsych.org</a>)</p>'+
-      '<p>The data-saving functionality has been disabled for this demo, so the demo will end on a blank page.</p>'],
+      '<p>The data-saving functionality has been disabled for this demo, so it will end on a blank page.</p>'],
       show_clickable_nav: true,
     }
 
     var demo = {
       type: 'paint',
-      instructions: 'Choose paint colors on the palette bar, and paint on the body to show how comfortable/uncomfortable you would be if a stranger touched you there.',
+      instructions: 'Choose colors from the palette bar, and paint on the body to show how comfortable/uncomfortable you would be if a stranger touched you there.',
     }
 
     timeline.push(instructions);
